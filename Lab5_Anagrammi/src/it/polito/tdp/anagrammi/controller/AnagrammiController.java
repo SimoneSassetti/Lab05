@@ -39,7 +39,10 @@ public class AnagrammiController {
     	for(int i=0; i<parolaInserita.length(); i++){
     		lettere.add(parolaInserita.substring(i, i+1));
     	}
-    	model.cercaAnagrammi(lettere);
+    	for(String s: model.cercaAnagrammi(lettere)){
+    		txtCorretti.appendText(s+"\n");
+    	}
+    	
     	
     	
     	
@@ -47,7 +50,9 @@ public class AnagrammiController {
 
     @FXML
     void doReset(ActionEvent event) {
-
+    	txtInput.clear();
+    	txtCorretti.clear();
+    	txtErrati.clear();
     }
 
     @FXML

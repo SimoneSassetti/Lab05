@@ -50,6 +50,8 @@ public class Lettera {
 	public String toString() {
 		return String.format("Lettera [codice=%s, lettera=%s]", codice, lettera);
 	}
-	
-	
+
+	public int lunghezza() {
+		return this.getLettera().length();
+	}
 }

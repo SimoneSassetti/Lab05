@@ -2,14 +2,19 @@ package it.polito.tdp.anagrammi.model;
 
 import java.util.*;
 
+import it.polito.tdp.anagrammi.DAO.AnagrammaDAO;
+
 public class Model {
 
 	private List<Lettera> lettere;
+	private List<String> complete;
 	private int codice;
+	private List<Dizionario> listaParola=new LinkedList<Dizionario>(); 
 	
 	public Model(){
 		codice=0;
 		lettere=new LinkedList<Lettera>();
+		complete=new LinkedList<String>();
 	}
 
 	public List<String> cercaAnagrammi(List<String> parola) {
@@ -19,30 +24,36 @@ public class Model {
 			codice++;
 		}
 		
-		List<Lettera> parziale=new LinkedList<Lettera>();
-		List<Lettera> complete=new LinkedList<Lettera>();
-		recursive(parziale, 0, complete);
-		
-		
-		return null;
+		List<Lettera> AnagrammaParziale=new LinkedList<Lettera>();
+		recursive(AnagrammaParziale, 0);
+		return complete;
 	}
 	
-	private void recursive(List<Lettera> parziale, int step, List<Lettera> complete){
+	private void recursive(List<Lettera> parziale, int step){
+		AnagrammaDAO dao=new AnagrammaDAO();
 		
-		if(parziale.size()==lettere.size()){
-			complete.clear();
-			complete.addAll(parziale);
+		if(parziale.size()==lettere.size() && !complete.contains(calcolaCaratteri(parziale))){
+			String temp=calcolaCaratteri(parziale);
+			complete.add(temp);
+			listaParola.add(new Dizionario(temp,dao.isCorrect(temp)));
+			return;
 		}
-		
 		
 		for(Lettera l: lettere){
 			if(!parziale.contains(l)){
-				parziale.add(l);
-				recursive(parziale, step+1, complete);
-				parziale.remove(l);
+				if(parziale.size()<this.lettere.size()){
+					parziale.add(l);
+					recursive(parziale,step+1);
+					parziale.remove(l);
+				}
 			}
+		}	
+	}
+	private String calcolaCaratteri(List<Lettera> parziale){
+		String ris="";
+		for(Lettera l: parziale){
+			ris+=l.getLettera();
 		}
-		
-		
+		return ris;
 	}
 }
