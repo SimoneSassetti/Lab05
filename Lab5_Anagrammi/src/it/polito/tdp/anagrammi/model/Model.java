@@ -9,15 +9,16 @@ public class Model {
 	private List<Lettera> lettere;
 	private List<String> complete;
 	private int codice;
-	private List<Dizionario> listaParola=new LinkedList<Dizionario>(); 
+	private List<Dizionario> listaParola;
 	
 	public Model(){
 		codice=0;
 	}
 
 	public List<Dizionario> cercaAnagrammi(List<String> parola) {
-		lettere=new LinkedList<Lettera>();
+		lettere=new LinkedList<Lettera>();//INIZIALIZZAZIONE VA FATTA SEMPRE DENTRO PER CANCELLARE COSA CONTIENE
 		complete=new LinkedList<String>();
+		listaParola=new LinkedList<Dizionario>(); 
 		for(String s: parola){
 			Lettera l=new Lettera(codice,s);
 			lettere.add(l);
