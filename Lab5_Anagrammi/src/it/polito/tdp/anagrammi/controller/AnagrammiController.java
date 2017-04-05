@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.*;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.anagrammi.model.Dizionario;
 import it.polito.tdp.anagrammi.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,18 +35,21 @@ public class AnagrammiController {
 
     @FXML
     void doCalcola(ActionEvent event) {
-    	String parolaInserita=txtInput.getText();
+    	String parolaInserita="";
+    	parolaInserita=txtInput.getText();
     	List<String> lettere=new LinkedList<String>();
     	for(int i=0; i<parolaInserita.length(); i++){
     		lettere.add(parolaInserita.substring(i, i+1));
     	}
-    	for(String s: model.cercaAnagrammi(lettere)){
-    		txtCorretti.appendText(s+"\n");
-    	}
     	
-    	
-    	
-    	
+    	for(Dizionario d: model.cercaAnagrammi(lettere)){
+    		if(d.isTrovato()){
+    			txtCorretti.appendText(d.getParola()+"\n");
+    		}
+    		else{
+    			txtErrati.appendText(d.getParola()+"\n");
+    		}
+    	}	
     }
 
     @FXML

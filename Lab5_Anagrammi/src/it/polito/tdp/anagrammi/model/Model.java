@@ -13,11 +13,11 @@ public class Model {
 	
 	public Model(){
 		codice=0;
-		lettere=new LinkedList<Lettera>();
-		complete=new LinkedList<String>();
 	}
 
-	public List<String> cercaAnagrammi(List<String> parola) {
+	public List<Dizionario> cercaAnagrammi(List<String> parola) {
+		lettere=new LinkedList<Lettera>();
+		complete=new LinkedList<String>();
 		for(String s: parola){
 			Lettera l=new Lettera(codice,s);
 			lettere.add(l);
@@ -26,7 +26,7 @@ public class Model {
 		
 		List<Lettera> AnagrammaParziale=new LinkedList<Lettera>();
 		recursive(AnagrammaParziale, 0);
-		return complete;
+		return listaParola;
 	}
 	
 	private void recursive(List<Lettera> parziale, int step){

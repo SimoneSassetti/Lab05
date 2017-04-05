@@ -21,10 +21,5 @@ public class Dizionario {
 	}
 	public void setTrovato(boolean trovato) {
 		this.trovato = trovato;
-	}
-	
-	
-	
-	
-	
+	}	
 }
